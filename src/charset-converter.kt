@@ -43,12 +43,12 @@ class BurpExtender : IBurpExtender, IProxyListener, IHttpListener {
     override fun processHttpMessage(toolFlag: Int, isRequest: Boolean, messageInfo: IHttpRequestResponse) {
         try {
             if (isRequest) {
-                val rc = processInbound(parseRequest(messageInfo.request))
+                val rc = processOutbound(parseRequest(messageInfo.request))
                 if(rc != null) {
                     messageInfo.request = rc
                 }
             } else {
-                val rc = processOutbound(parseResponse(messageInfo.response))
+                val rc = processInbound(parseResponse(messageInfo.response))
                 if (rc != null) {
                     messageInfo.response = rc
                 }
